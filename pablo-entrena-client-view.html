@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pablo Entrena - Mi Sesión</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .app {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .header .date {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* MAIN CONTENT */
+        .content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 12px;
+        }
+
+        .card {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .workout-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+            padding: 12px;
+            border-left: 3px solid #2196F3;
+            border-radius: 4px;
+        }
+
+        .report-form {
+            padding: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .btn-option {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            background: #fff;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-option:hover {
+            border-color: #2196F3;
+            background: #f5f5f5;
+        }
+
+        .btn-option.active {
+            border-color: #2196F3;
+            background: #e3f2fd;
+            color: #2196F3;
+        }
+
+        .emoji-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .emoji-btn {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #ddd;
+            background: #fff;
+            border-radius: 8px;
+            font-size: 28px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .emoji-btn:hover {
+            border-color: #2196F3;
+            transform: scale(1.05);
+        }
+
+        .emoji-btn.active {
+            border-color: #2196F3;
+            background: #e3f2fd;
+            transform: scale(1.1);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #2196F3;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+
+        /* FOOTER / ACTIONS */
+        .footer {
+            padding: 16px;
+            border-top: 1px solid #eee;
+            background: #fafafa;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #2196F3;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1976D2;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+            margin-top: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .collapsible {
+            cursor: pointer;
+            user-select: none;
+            margin-top: 20px;
+        }
+
+        .collapsible-header {
+            padding: 12px;
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .collapsible-header:hover {
+            background: #f0f0f0;
+        }
+
+        .collapsible-content {
+            display: none;
+            padding: 12px;
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+        }
+
+        .collapsible-content.open {
+            display: block;
+        }
+
+        .previous-report {
+            padding: 12px;
+            background: #fff;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            font-size: 13px;
+            line-height: 1.5;
+            border-left: 3px solid #4caf50;
+        }
+
+        @media (max-width: 480px) {
+            .app {
+                max-width: 100%;
+            }
+
+            .emoji-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>Pablo Entrena</h1>
+            <div class="date">Hoy • 15 de Octubre</div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <!-- TODAY'S WORKOUT -->
+            <div class="section">
+                <div class="section-title">Sesión de Hoy</div>
+                <div class="card">
+                    <div class="workout-text">
+                        Sesión de fuerza - tren inferior:<br><br>
+                        • Sentadillas: 4x6 RPE 8<br>
+                        • Peso muerto: 3x5 RPE 8<br>
+                        • Extensiones: 3x8<br>
+                        • Flexiones hamstrings: 3x8
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUICK REPORT FORM -->
+            <div class="section">
+                <div class="section-title">Reporte Rápido</div>
+                <div class="card report-form">
+                    <!-- Status -->
+                    <div class="form-group">
+                        <div class="label">¿Completaste la sesión?</div>
+                        <div class="button-group">
+                            <button class="btn-option active" onclick="toggleStatus(this, 'done')">✓ Completado</button>
+                            <button class="btn-option" onclick="toggleStatus(this, 'partial')">⚡ Parcial</button>
+                        </div>
+                    </div>
+
+                    <!-- Feeling Emoji -->
+                    <div class="form-group">
+                        <div class="label">¿Cómo te sientes?</div>
+                        <div class="emoji-group">
+                            <button class="emoji-btn" onclick="setFeeling(this, '💪')">💪</button>
+                            <button class="emoji-btn active" onclick="setFeeling(this, '👍')">👍</button>
+                            <button class="emoji-btn" onclick="setFeeling(this, '😴')">😴</button>
+                        </div>
+                    </div>
+
+                    <!-- Optional Notes -->
+                    <div class="form-group">
+                        <div class="label">Notas (opcional)</div>
+                        <textarea placeholder="p.ej. Las sentadillas se sintieron bien hoy..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PREVIOUS REPORTS (Collapsible) -->
+            <div class="collapsible">
+                <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                    <span>Reportes Anteriores</span>
+                    <span>▼</span>
+                </div>
+                <div class="collapsible-content">
+                    <div class="previous-report">
+                        <strong>13 de Octubre - Completo</strong><br>
+                        Sensación: 👍 Good<br>
+                        "Fue un buen día"
+                    </div>
+                    <div class="previous-report">
+                        <strong>11 de Octubre - Completo</strong><br>
+                        Sensación: 💪 Strong<br>
+                        "PRs en sentadillas!"
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER / ACTIONS -->
+        <div class="footer">
+            <button class="btn btn-primary" onclick="sendReport()">Enviar Reporte (3 seg)</button>
+            <button class="btn btn-secondary" onclick="cancel()">Cancelar</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleStatus(btn, status) {
+            const group = btn.parentElement;
+            group.querySelectorAll('.btn-option').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function setFeeling(btn, emoji) {
+            const group = btn.parentElement;
+            group.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function toggleCollapsible(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('span:last-child');
+            content.classList.toggle('open');
+            arrow.textContent = content.classList.contains('open') ? '▲' : '▼';
+        }
+
+        function sendReport() {
+            alert('✓ Reporte enviado a Pablo!');
+        }
+
+        function cancel() {
+            if (confirm('¿Cancelar?')) {
+                alert('Cancelado');
+            }
+        }
+    </script>
+</body>
+</html>

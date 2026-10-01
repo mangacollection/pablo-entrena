@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pablo Entrena - Coach Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 280px;
+            background: #fff;
+            border-right: 1px solid #eee;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #1a1a1a;
+        }
+
+        .client-list {
+            list-style: none;
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #999;
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+
+        .client-item {
+            padding: 12px;
+            margin-bottom: 8px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .client-item:hover {
+            background: #f0f0f0;
+        }
+
+        .client-item.active {
+            background: #e3f2fd;
+            border-left-color: #2196F3;
+        }
+
+        .client-name {
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .client-status {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .status-today {
+            color: #4caf50;
+            font-weight: 500;
+        }
+
+        .status-waiting {
+            color: #ff9800;
+            font-weight: 500;
+        }
+
+        /* MAIN CONTENT */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+        }
+
+        .header {
+            padding: 24px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .session-panel {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            max-width: 800px;
+        }
+
+        .card {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 12px;
+        }
+
+        .plan-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 16px;
+            background: #fff;
+            padding: 12px;
+            border-left: 3px solid #2196F3;
+        }
+
+        .report-section {
+            margin-top: 20px;
+        }
+
+        .report-status {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .status-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        .status-received {
+            background: #4caf50;
+        }
+
+        .report-text {
+            font-size: 14px;
+            background: #fff;
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+
+        .feeling-badge {
+            background: #e0e0e0;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .actions {
+            margin-top: 24px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #2196F3;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1976D2;
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #eee;
+                max-height: 150px;
+                display: flex;
+                overflow-x: auto;
+            }
+
+            .client-list {
+                display: flex;
+                gap: 8px;
+            }
+
+            .client-item {
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="logo">Pablo Entrena</div>
+            
+            <div class="section-title">Hoy</div>
+            <ul class="client-list">
+                <li class="client-item active">
+                    <div class="client-name">Carlos M.</div>
+                    <div class="client-status"><span class="status-today">Session today ✓</span></div>
+                </li>
+                <li class="client-item">
+                    <div class="client-name">María R.</div>
+                    <div class="client-status"><span class="status-waiting">Waiting for report</span></div>
+                </li>
+            </ul>
+
+            <div class="section-title">Próximamente</div>
+            <ul class="client-list">
+                <li class="client-item">
+                    <div class="client-name">Juan P.</div>
+                    <div class="client-status">Próximo: Miércoles</div>
+                </li>
+                <li class="client-item">
+                    <div class="client-name">Ana G.</div>
+                    <div class="client-status">Próximo: Viernes</div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main">
+            <div class="header">
+                <h1>Carlos M. - Sesión de Hoy</h1>
+            </div>
+
+            <div class="content">
+                <div class="session-panel">
+                    <!-- PLAN SENT -->
+                    <div class="card">
+                        <div class="card-title">Plan Enviado</div>
+                        <div class="plan-text">
+                            Sesión de fuerza - tren inferior:<br><br>
+                            • Sentadillas: 4x6 RPE 8<br>
+                            • Peso muerto: 3x5 RPE 8<br>
+                            • Extensiones: 3x8<br>
+                            • Flexiones hamstrings: 3x8
+                        </div>
+                    </div>
+
+                    <!-- REPORT RECEIVED -->
+                    <div class="card">
+                        <div class="card-title">Reporte del Cliente</div>
+                        <div class="report-status">
+                            <div class="status-icon status-received">✓</div>
+                            <span>Completado hace 2 horas</span>
+                        </div>
+                        
+                        <div class="report-text">
+                            <strong>Estado:</strong> Completo<br>
+                            <strong>Sensación:</strong> <span class="feeling-badge">💪 Strong</span><br>
+                            <strong>Notas:</strong> "Las sentadillas se sintieron bien hoy, peso muerto un poco pesado al final pero lo logré"
+                        </div>
+                    </div>
+
+                    <!-- INTERNAL NOTES (Optional) -->
+                    <div class="card">
+                        <div class="card-title">Nota Interna</div>
+                        <textarea style="width: 100%; height: 80px; border: 1px solid #ddd; border-radius: 4px; padding: 8px; font-family: inherit;" placeholder="Agregar nota..."></textarea>
+                    </div>
+
+                    <!-- ACTIONS -->
+                    <div class="actions">
+                        <button class="btn btn-primary">➜ Enviar Próxima Sesión</button>
+                        <button class="btn btn-secondary">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

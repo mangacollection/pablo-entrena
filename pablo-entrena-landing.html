@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pablo Entrena - Premium Personal Training</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            background: #fafaf8;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        /* HERO */
+        .hero {
+            padding: 80px 40px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+            line-height: 1.15;
+            letter-spacing: -1.5px;
+        }
+
+        .hero .subheader {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .hook {
+            font-size: 18px;
+            color: #444;
+            margin-bottom: 40px;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .hook strong {
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        /* NARRATIVE */
+        .narrative {
+            padding: 60px 40px;
+            background: #fafaf8;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .narrative p {
+            margin-bottom: 20px;
+        }
+
+        .narrative .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            font-weight: 500;
+        }
+
+        .narrative .bold {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 60px 40px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .cta-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 24px;
+        }
+
+        .cta-subtext {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 32px;
+        }
+
+        .btn-cta {
+            background: #2196F3;
+            color: white;
+            padding: 16px 48px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-cta:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+        }
+
+        /* FORM MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #fff;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-content h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2196F3;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn-submit {
+            flex: 1;
+            background: #2196F3;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background: #1976D2;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            background: #e0e0e0;
+            color: #333;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-cancel:hover {
+            background: #d0d0d0;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero, .narrative, .cta-section {
+                padding: 40px 20px;
+            }
+
+            .modal-content {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HERO -->
+        <div class="hero">
+            <h1>Tu abuelo tenía algo que tú no.</h1>
+            <p class="subheader">Y probablemente ni sabes que lo perdiste.</p>
+        </div>
+
+        <!-- NARRATIVE -->
+        <div class="narrative">
+            <p>
+                Cansancio que no se cura con café. Dolor que aparece sin razón. La gasolina se acabó. <br><br>
+                Ves gente en Instagram haciendo lo imposible, pero tú... tú apenas puedes abrir un frasco.
+            </p>
+
+            <p>
+                Tu abuelo corría. Tu abuelo levantaba cosas pesadas. Tu abuelo comía carne sin culpa, verduras de verdad, y dormía profundo. <br><br>
+                <span class="bold">Tu cuerpo no está roto. Está confundido.</span>
+            </p>
+
+            <p>
+                En 8 semanas, te muestro cómo volver a sentirte como alguien. No como un superhéroe. Como <span class="highlight">una persona normal que puede vivir su vida.</span>
+            </p>
+
+            <p>
+                Sin dietas raras. Sin suplementos mágicos. Sin excusas.
+            </p>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <p class="cta-text">Quedan 5 spots para el próximo programa.</p>
+            <p class="cta-subtext">Garantizado: 8 semanas o tu dinero de vuelta.</p>
+            <button class="btn-cta" onclick="openForm()">Aplicar al Programa</button>
+        </div>
+    </div>
+
+    <!-- FORM MODAL -->
+    <div class="modal" id="formModal">
+        <div class="modal-content">
+            <h2>Aplicar al Programa</h2>
+            <form onsubmit="submitForm(event)">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="tel">
+                </div>
+                <div class="form-group">
+                    <label>¿Qué es lo que más te cuesta hacer?</label>
+                    <textarea rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Enviar Aplicación</button>
+                    <button type="button" class="btn-cancel" onclick="closeForm()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openForm() {
+            document.getElementById('formModal').classList.add('open');
+        }
+
+        function closeForm() {
+            document.getElementById('formModal').classList.remove('open');
+        }
+
+        function submitForm(e) {
+            e.preventDefault();
+            alert('✓ Aplicación enviada! Pablo se contactará pronto.');
+            closeForm();
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('formModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeForm();
+            }
+        });
+    </script>
+</body>
+</html>
